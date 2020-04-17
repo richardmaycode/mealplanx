@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_174018) do
+ActiveRecord::Schema.define(version: 2020_04_17_211212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2020_04_12_174018) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "day_blocks", force: :cascade do |t|
+    t.date "scheduled"
+    t.bigint "week_block_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["week_block_id"], name: "index_day_blocks_on_week_block_id"
   end
 
   create_table "meals", force: :cascade do |t|
@@ -38,8 +46,10 @@ ActiveRecord::Schema.define(version: 2020_04_12_174018) do
     t.date "date"
     t.integer "meal"
     t.bigint "recipe_id", null: false
+    t.bigint "day_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_block_id"], name: "index_plans_on_day_block_id"
     t.index ["recipe_id"], name: "index_plans_on_recipe_id"
   end
 
@@ -58,5 +68,14 @@ ActiveRecord::Schema.define(version: 2020_04_12_174018) do
     t.index ["cuisine_id"], name: "index_recipes_on_cuisine_id"
   end
 
+  create_table "week_blocks", force: :cascade do |t|
+    t.date "week_start"
+    t.date "week_end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "day_blocks", "week_blocks"
+  add_foreign_key "plans", "day_blocks"
   add_foreign_key "plans", "recipes"
 end

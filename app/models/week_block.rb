@@ -1,0 +1,2 @@
+class WeekBlock < ApplicationRecord
+end
