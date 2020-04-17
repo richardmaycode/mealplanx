@@ -4,15 +4,20 @@ class Recipe < ApplicationRecord
 
   belongs_to :cuisine
 
-  def sort_score
+  def sort_score(previous_meal)
     base = 100
-    score = base + time_bonus + fav_bonus + leftover_mod(rand(0..4)) + cuisine_bonus(rand(1..4)) + base_bonus("Chicken")
+    score = base + time_bonus + fav_bonus + leftover_mod(previous_meal.leftovers) + cuisine_bonus(previous_meal.cuisine_id) + base_bonus(previous_meal.base)
 
     return score
   end
 
   def time_bonus 
-    bonus = (Time.now.to_date - last_used).to_i * 10
+    days_since_last_used = (Time.now.to_date - last_used).to_i
+    if days_since_last_used.between?(-100, 5) 
+      bonus = -5000
+    else
+      bonus = days_since_last_used * 25
+    end
     return bonus
   end
 
@@ -38,7 +43,7 @@ class Recipe < ApplicationRecord
 
   def base_bonus(prev_base)
     if prev_base != base
-      bonus = 500
+      bonus = 5000
     else
       bonus = 0
     end

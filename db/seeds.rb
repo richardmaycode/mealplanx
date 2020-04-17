@@ -24,3 +24,5 @@ Recipe.create(name: "Shepards Pie", meal: 4, base: "Beef", cuisine_id: 1, leftov
 Recipe.create(name: "Quesadilla", meal: 4, base: "Cheese", cuisine_id: 2, leftovers: 0, baby_friendly: true, last_used: Time.now - 2.days)
 
 Recipe.create(name: "Beef and Broccoli", meal: 4, base: "Beef", cuisine_id: 3, leftovers: 2, cooking_length: 0, baby_friendly: false, last_used: Time.now - 6.days)
+
+Plan.create(date: Time.now, meal: 4, recipe_id: 1)
