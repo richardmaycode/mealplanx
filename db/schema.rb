@@ -23,10 +23,20 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
 
   create_table "day_blocks", force: :cascade do |t|
     t.date "scheduled"
+    t.string "day"
     t.bigint "week_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["week_block_id"], name: "index_day_blocks_on_week_block_id"
+  end
+
+  create_table "favorite_recipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_favorite_recipes_on_recipe_id"
+    t.index ["user_id"], name: "index_favorite_recipes_on_user_id"
   end
 
   create_table "meals", force: :cascade do |t|
@@ -60,12 +70,26 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
     t.integer "cooking_length"
     t.integer "leftovers"
     t.boolean "baby_friendly"
-    t.boolean "is_favorite"
     t.date "last_used"
     t.bigint "cuisine_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cuisine_id"], name: "index_recipes_on_cuisine_id"
+  end
+
+  create_table "recipes_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_recipes_users_on_recipe_id"
+    t.index ["user_id"], name: "index_recipes_users_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "week_blocks", force: :cascade do |t|
@@ -76,6 +100,10 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
   end
 
   add_foreign_key "day_blocks", "week_blocks"
+  add_foreign_key "favorite_recipes", "recipes"
+  add_foreign_key "favorite_recipes", "users"
   add_foreign_key "plans", "day_blocks"
   add_foreign_key "plans", "recipes"
+  add_foreign_key "recipes_users", "recipes"
+  add_foreign_key "recipes_users", "users"
 end

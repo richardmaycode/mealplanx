@@ -8,7 +8,6 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
       t.integer :cooking_length
       t.integer :leftovers
       t.boolean :baby_friendly
-      t.boolean :is_favorite
       t.date :last_used
       
       #relationships

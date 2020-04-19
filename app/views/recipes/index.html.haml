@@ -1,0 +1,21 @@
+.container.mx-auto
+  .flex.p-2
+    %div{class: 'w-2/5'}
+      %h1.text-2xl Recipes
+    .text-right{class: 'w-3/5'}
+      %span.inline-block.bg-blue-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700.mr-2 All      
+      %span.inline-block.bg-blue-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700.mr-2 Breakfast
+      %span.inline-block.bg-blue-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700.mr-2 Lunch
+      %span.inline-block.bg-blue-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700.mr-2 Diner
+.container.mx-auto
+  - @recipes.each do |r|
+    .flex.m-4.bg-white.p-6.rounded.shadow-lg
+      .w-full
+        .px-6.py-4
+          %h3.font-bold.text-lg #{r.name}
+          %p.text-gray-700.text-base
+            = r.base
+        .float-right.inline-block
+          = r.is_favorite? ? "<i class='fas fa-heart fa-lg text-red-600'></i>".html_safe : "<i class='fal fa-heart fa-lg text-gray-500'></i>".html_safe
+          = r.is_favorite? ? "<i class='fas fa-check-circle fa-lg text-teal-600'></i>".html_safe : "<i class='fal fa-times-circle fa-lg text-gray-500'></i>".html_safe
+

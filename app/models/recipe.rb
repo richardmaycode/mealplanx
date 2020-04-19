@@ -3,7 +3,8 @@ class Recipe < ApplicationRecord
   enum cooking_length: [:short, :medium, :long]
 
   belongs_to :cuisine
-
+  has_and_belongs_to_many :users
+  
   def sort_score(previous_meal)
     base = 100
     score = base + time_bonus + fav_bonus + leftover_mod(previous_meal.leftovers) + cuisine_bonus(previous_meal.cuisine_id) + base_bonus(previous_meal.base)
