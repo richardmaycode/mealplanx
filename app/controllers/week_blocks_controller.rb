@@ -5,7 +5,7 @@ class WeekBlocksController < ApplicationController
   def index; end
 
   def show 
-    @week_block = WeekBlock.find(params[:id])
+    @week_block = WeekBlock.includes(:day_blocks, :plans, :planned_recipes).find(params[:id])
   end
 
   def new
