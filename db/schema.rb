@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
     t.string "base"
     t.integer "meal"
     t.integer "cooking_length"
-    t.integer "leftovers"
+    t.integer "servings"
     t.boolean "baby_friendly"
     t.date "last_used"
     t.bigint "cuisine_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.integer "last_meal"
+    t.integer "servings_needed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

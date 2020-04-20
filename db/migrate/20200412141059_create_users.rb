@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     create_table :users do |t|
       t.string :username
       t.integer :last_meal
-
+      t.integer :servings_needed
       t.timestamps
     end
   end

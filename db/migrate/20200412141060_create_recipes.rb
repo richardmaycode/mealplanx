@@ -6,7 +6,7 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
       t.string :base
       t.integer :meal
       t.integer :cooking_length
-      t.integer :leftovers
+      t.integer :servings
       t.boolean :baby_friendly
       t.date :last_used
       

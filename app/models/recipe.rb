@@ -46,7 +46,7 @@ class Recipe < ApplicationRecord
 
   def base_bonus(prev_base)
     if prev_base != base
-      bonus = 5000
+      bonus = 15000
     else
       bonus = 0
     end
@@ -56,5 +56,18 @@ class Recipe < ApplicationRecord
   def is_favorite
     current_user = User.first
     current_user.favorites.exists?(self.id)
+  end
+  
+  def is_selected
+    current_user = User.first
+    current_user.recipes.exists?(self.id)
+  end
+  
+  def leftovers
+    current_user = User.first
+    leftover = servings - current_user.servings_needed
+    return leftover unless leftover < 0 
+    
+    0
   end
 end

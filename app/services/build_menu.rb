@@ -15,7 +15,7 @@ class BuildMenu
     @days.each do |d|
       recipe = score_and_return_recipe
       create_plan(d, recipe)
-      @recipes = Recipe.where(meal: 3).where.not(id: used_ids)
+      @recipes = Recipe.where(meal: 3).where.not(id: @used_ids)
       @plans_planned += 1
     end
     return true if @plans_planned == @days.count
@@ -23,9 +23,10 @@ class BuildMenu
     false
   end
 
-  def creat_plan(day_block, recipe)
+  def create_plan(day_block, recipe)
     Plan.create!(meal: day_block.meal, recipe_id: recipe, day_block: day_block)
-    Recipe.find(recipe).update(last_used: d.scheduled)
+    Recipe.find(recipe).update(last_used: day_block.scheduled)
+    @last_meal = Recipe.find(recipe)
     @used_ids << recipe
   end
 
