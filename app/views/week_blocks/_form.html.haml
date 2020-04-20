@@ -1,13 +1,14 @@
 .w-full.max-w-xs
   = form_with model: @week_block do |f|
     = f.label :week_start, 'Week Start', class: 'label'
-    = f.date_field :week_start
+    = f.date_field :week_start, value: (Time.now + 1.days).strftime('%Y-%m-%d') 
     = f.label :week_end, 'Week End', class: 'label'
-    = f.date_field :week_end
+    = f.date_field :week_end, value: (Time.now + 7.days).strftime('%Y-%m-%d') 
     = f.fields_for :day_blocks, @week_block.day_blocks do |ff|
       .bg-white.shadow-md.rounded.px-9.pt-6.pb-8.mb-4
         = ff.hidden_field :day, value: ff.object.day
         = ff.label :day, ff.object.day, class: 'label'
-        = ff.label :scheudled, 'Scheduled', class: 'label'
-        = ff.date_field :scheduled
+        = ff.hidden_field :scheduled, value: ff.object.scheduled
+        = ff.label :meal, "Meal", class: 'label'
+        = ff.select :meal, DayBlock.meals.keys.map { |m| [m.humanize, m] }
     = f.submit "Create"

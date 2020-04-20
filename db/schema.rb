@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
   create_table "day_blocks", force: :cascade do |t|
     t.date "scheduled"
     t.string "day"
+    t.integer "meal"
     t.bigint "week_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -53,7 +54,6 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.date "date"
     t.integer "meal"
     t.bigint "recipe_id", null: false
     t.bigint "day_block_id", null: false
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
 
   create_table "users", force: :cascade do |t|
     t.string "username"
+    t.integer "last_meal"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

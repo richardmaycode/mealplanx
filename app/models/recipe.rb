@@ -4,6 +4,8 @@ class Recipe < ApplicationRecord
 
   belongs_to :cuisine
   has_and_belongs_to_many :users
+  has_many :favorite_recipes
+  has_many :favorited_users, through: :favorite_recipes, source: :user
   
   def sort_score(previous_meal)
     base = 100
@@ -49,5 +51,10 @@ class Recipe < ApplicationRecord
       bonus = 0
     end
     return bonus
+  end
+
+  def is_favorite
+    current_user = User.first
+    current_user.favorites.exists?(self.id)
   end
 end

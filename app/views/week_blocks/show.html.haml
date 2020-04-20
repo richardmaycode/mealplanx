@@ -1,0 +1,4 @@
+%h1.text-xl #{ @week_block.week_start }
+- @week_block.day_blocks.each do |db|
+  %h2.text-lg 
+    = db.day + " - " + db.plans.first.recipe.name
