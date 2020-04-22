@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_211212) do
+ActiveRecord::Schema.define(version: 2020_04_20_172424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,17 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
   create_table "day_blocks", force: :cascade do |t|
     t.date "scheduled"
     t.string "day"
-    t.integer "meal"
     t.bigint "week_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["week_block_id"], name: "index_day_blocks_on_week_block_id"
+  end
+
+  create_table "day_blocks_meals", id: false, force: :cascade do |t|
+    t.bigint "meal_id"
+    t.bigint "day_block_id"
+    t.index ["day_block_id"], name: "index_day_blocks_meals_on_day_block_id"
+    t.index ["meal_id"], name: "index_day_blocks_meals_on_meal_id"
   end
 
   create_table "favorite_recipes", force: :cascade do |t|
@@ -42,15 +48,6 @@ ActiveRecord::Schema.define(version: 2020_04_17_211212) do
 
   create_table "meals", force: :cascade do |t|
     t.string "name"
-    t.string "base"
-    t.integer "meal_time"
-    t.string "meal_type"
-    t.integer "leftovers"
-    t.boolean "baby_friendly", default: false
-    t.date "last_used"
-    t.integer "cooking_length"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "plans", force: :cascade do |t|

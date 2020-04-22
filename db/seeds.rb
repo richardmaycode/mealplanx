@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Meal.create(name: "breakfast")
+Meal.create(name: "lunch")
+Meal.create(name: "dinner")
+Meal.create(name: "dessert")
 
 Cuisine.create(name:"American")
 Cuisine.create(name:"Mexican")
@@ -31,6 +35,14 @@ User.create(username: "twiggy", servings_needed: 2)
 
 # Recipe.create(name: "Creamy Chicken Casarole", meal: 3, base: "Chicken", cuisine_id_id: 3, leftovers: 2, cooking_length: 1, baby_friendly: false, last_used: Time.now - 9.days)
 
+# Breakfast recipes
+Recipe.create(name: 'Pancakes', base: 'Bread', cuisine_id: 1, servings: 2, baby_friendly: true, cooking_length: 1, meal: 1, last_used: Time.now - 0.days)
+Recipe.create(name: 'Biscuits and Gravy', base: 'Bread', cuisine_id: 1, servings: 4, baby_friendly: false, cooking_length: 2, meal: 1, last_used: Time.now - 0.days)
+Recipe.create(name: 'Waffles', base: 'Bread', cuisine_id: 1, servings: 2, baby_friendly: true, cooking_length: 1, meal: 1, last_used: Time.now - 0.days)
+Recipe.create(name: 'French Toast', base: 'Bread', cuisine_id: 1, servings: 4, baby_friendly: true, cooking_length: 1, meal: 1, last_used: Time.now - 0.days)
+Recipe.create(name: 'Eggs and Bacon', base: 'Eggs', cuisine_id: 1, servings: 2, baby_friendly: true, cooking_length: 1, meal: 1, last_used: Time.now - 0.days)
+
+# Dinner recipes
 Recipe.create(name: 'Shepherd’s pie', base: 'Beef', cuisine_id: 1, servings: 4, baby_friendly: true, cooking_length: 0, meal: 3, last_used: Time.now - 31.days)
 Recipe.create(name: 'Roast', base: 'Beef', cuisine_id: 1, servings: 5, baby_friendly: false, cooking_length: 2, meal: 3, last_used: Time.now - 34.days)
 Recipe.create(name: 'Meatballs and zoodles', base: 'Beef', cuisine_id: 4, servings: 4, baby_friendly: false, cooking_length: 1, meal: 3, last_used: Time.now - 30.days)
@@ -68,7 +80,7 @@ Recipe.all.each do |r|
 end
 
 User.first.update(recipe_ids: all_recipes, last_meal: 1)
-favs = [1, 2, 6, 12, 13, 16, 19, 27, 29]
+favs = [2, 6, 7, 11, 17, 18, 21, 24, 32, 33]
 favs.each do |f|
   FavoriteRecipe.create(user_id: 1, recipe_id: f)
 end
