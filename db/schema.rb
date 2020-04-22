@@ -51,12 +51,13 @@ ActiveRecord::Schema.define(version: 2020_04_20_172424) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.integer "meal"
+    t.bigint "meal_id"
     t.bigint "recipe_id", null: false
     t.bigint "day_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["day_block_id"], name: "index_plans_on_day_block_id"
+    t.index ["meal_id"], name: "index_plans_on_meal_id"
     t.index ["recipe_id"], name: "index_plans_on_recipe_id"
   end
 

@@ -9,6 +9,6 @@
         = ff.hidden_field :day, value: ff.object.day
         = ff.label :day, ff.object.day, class: 'label'
         = ff.hidden_field :scheduled, value: ff.object.scheduled
-        = ff.label :meal, "Meal", class: 'label'
-        = ff.select :meal, DayBlock.meals.keys.map { |m| [m.humanize, m] }
+        - ff.object.meal_ids.each do |m|
+          = ff.hidden_field :meal_ids, multiple: true, value: m
     = f.submit "Create"

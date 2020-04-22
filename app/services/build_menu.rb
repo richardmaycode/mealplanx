@@ -24,7 +24,7 @@ class BuildMenu
         meal = m.name
         @recipes = Recipe.where(meal: m).where.not(id: @used_ids)
         recipe = score_and_return_recipe
-        create_plan(d, recipe)
+        create_plan(d, m, recipe)
         @plans_planned += 1
       end
     end
@@ -34,8 +34,8 @@ class BuildMenu
     false
   end
 
-  def create_plan(day_block, recipe)
-    Plan.create(meal: day_block.meal, recipe_id: recipe, day_block: day_block)
+  def create_plan(day_block, meal, recipe)
+    Plan.create(meal: meal, recipe_id: recipe, day_block: day_block)
     Recipe.find(recipe).update(last_used: day_block.scheduled)
     @last_meal = Recipe.find(recipe)
     @used_ids << recipe
