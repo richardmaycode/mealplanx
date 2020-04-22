@@ -9,16 +9,27 @@ class BuildMenu
     @last_meal = Recipe.find(@user.last_meal)
     @used_ids ||= []
     @plans_planned = 0
+    @week_block_meals = @days.first.week_block.meals.count
   end
 
   def execute
+    # @days.each do |d|
+    #   recipe = score_and_return_recipe
+    #   create_plan(d, recipe)
+    #   @recipes = Recipe.where(meal: 3).where.not(id: @used_ids)
+    #   @plans_planned += 1
+    # end
     @days.each do |d|
-      recipe = score_and_return_recipe
-      create_plan(d, recipe)
-      @recipes = Recipe.where(meal: 3).where.not(id: @used_ids)
-      @plans_planned += 1
+      d.meals.each do |m|
+        meal = m.name
+        @recipes = Recipe.where(meal: m).where.not(id: @used_ids)
+        recipe = score_and_return_recipe
+        create_plan(d, recipe)
+        @plans_planned += 1
+      end
     end
-    return true if @plans_planned == @days.count
+    
+    return true if @plans_planned == @week_block_meals
 
     false
   end
