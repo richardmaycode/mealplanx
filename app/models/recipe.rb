@@ -6,6 +6,7 @@ class Recipe < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :ingredients
   has_many :instructions
+  has_many :used_recipes
   has_many :favorite_recipes
   has_many :favorited_users, through: :favorite_recipes, source: :user
   
