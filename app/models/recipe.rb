@@ -18,7 +18,7 @@ class Recipe < ApplicationRecord
   end
 
   def time_bonus 
-    days_since_last_used = (Time.now.to_date - last_used).to_i
+    days_since_last_used = (Time.now.to_date - last_used_by_user).to_i
     if days_since_last_used.between?(-100, 5) 
       bonus = -5000
     else
@@ -72,5 +72,15 @@ class Recipe < ApplicationRecord
     return leftover unless leftover < 0 
     
     0
+  end
+
+  def last_used_by_user
+    current_user = User.first
+    last_used_record = UsedRecipe.where(user: current_user, recipe: self).first
+    date_used = Time.now - 10.days
+    if !last_used_record.nil? 
+      date_used = last_used_record.date_used
+    end
+    return date_used.to_date
   end
 end

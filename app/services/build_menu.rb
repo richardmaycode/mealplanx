@@ -37,6 +37,7 @@ class BuildMenu
   def create_plan(day_block, meal, recipe)
     Plan.create(meal: meal, recipe_id: recipe, day_block: day_block)
     Recipe.find(recipe).update(last_used: day_block.scheduled)
+    UsedRecipe.create(day_block.scheduled, recipe_id: recipe, user: User.first)
     @last_meal = Recipe.find(recipe)
     @used_ids << recipe
   end
