@@ -1,5 +1,20 @@
 .container.mx-auto.text-center
-  %h1.text-3xl.p-6 Week 4/20/20
-.container.mx-auto.text-center
-  %h2.text-lg.p-6 The week has not been planned.
-  = link_to 'Plan Week', [:new, :week_block], class: "btn btn-blue"
+  %h1.text-3xl.p-6 Week of #{ @week_block.week_start}
+- if @week_block.nil?
+  .container.mx-auto.text-center
+    %h2.text-lg.p-6 The week has not been planned.
+    = link_to 'Plan Week', [:new, :week_block], class: "btn btn-blue"
+- else
+  .flex.flex-col.max-w-lg.mx-auto
+    - @day_blocks.each do |day_block|
+      .bg-white.rounded-lg.shadow-lg.m-2
+        .p-4
+          %h2.text-xl
+            = day_block.day
+          .flex
+            - day_block.plans.each do |plan|
+              .p-3
+                %h3 
+                  = plan.meal.name.capitalize
+                %p
+                  = plan.recipe.name

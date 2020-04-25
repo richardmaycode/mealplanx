@@ -2,7 +2,12 @@
 
 # defines controller actions for week_block
 class WeekBlocksController < ApplicationController
-  def index; end
+  def index
+    weeknumber = Time.now.strftime("%V").to_i
+    year = Time.now.year
+    @week_block = WeekBlock.includes(:day_blocks, :plans).find_by_week_start(Date.commercial(year, weeknumber, 3))
+    @day_blocks = @week_block.day_blocks
+  end
 
   def show 
     @week_block = WeekBlock.includes(:day_blocks, :plans, :planned_recipes).find(params[:id])

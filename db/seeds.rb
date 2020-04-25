@@ -43,7 +43,20 @@ Recipe.create(name: 'French Toast', base: 'Bread', cuisine_id: 1, servings: 4, b
 Recipe.create(name: 'Eggs and Bacon', base: 'Eggs', cuisine_id: 1, servings: 2, baby_friendly: true, cooking_length: 1, meal: 1, last_used: Time.now - 0.days)
 
 # Dinner recipes
-Recipe.create(name: 'Shepherd’s pie', base: 'Beef', cuisine_id: 1, servings: 4, baby_friendly: true, cooking_length: 0, meal: 3, last_used: Time.now - 31.days)
+recipe = Recipe.create!(name: 'Shepherd’s pie', base: 'Beef', cuisine_id: 1, servings: 4, baby_friendly: true, cooking_length: 0, meal: 3, last_used: Time.now - 31.days)
+
+#ingredients
+recipe.ingredients.create(name: "beef", amount: 1.0, measure: "pound")
+recipe.ingredients.create(name: "mashed potatoes", amount: 2, measure: 'cup')
+recipe.ingredients.create(name: 'sweet corn', amount: 8.75, measure: 'ounce')
+recipe.ingredients.create(name: 'colby jack cheese', amount: 1, measure: 'cup')
+
+#instructions
+recipe.instructions.create(detail: "Brown the beef", step: 1)
+recipe.instructions.create(detail: "Make the mashed potatoes", step: 2)
+recipe.instructions.create(detail: "Put the mashed potatoes, the beef, and corn in a glass thing. Top with cheese.", step: 3)
+recipe.instructions.create(detail: "Microwave for 4 minutes", step: 4)
+
 Recipe.create(name: 'Roast', base: 'Beef', cuisine_id: 1, servings: 5, baby_friendly: false, cooking_length: 2, meal: 3, last_used: Time.now - 34.days)
 Recipe.create(name: 'Meatballs and zoodles', base: 'Beef', cuisine_id: 4, servings: 4, baby_friendly: false, cooking_length: 1, meal: 3, last_used: Time.now - 30.days)
 Recipe.create(name: 'BBQ meatloaf', base: 'Beef', cuisine_id: 1, servings: 4, baby_friendly: false, cooking_length: 1, meal: 3, last_used: Time.now - 29.days)
