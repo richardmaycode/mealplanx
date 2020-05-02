@@ -1,2 +1,33 @@
-%h1 Recipes#show
-%p Find me in app/views/recipes/show.html.haml
+.container.mx-auto.mt-8
+  .flex
+    .flex.flex-col{ class: 'w-1/3'}
+      .bg-white.p-4.m-1.rounded.shadow-lg.relative
+        %p.text-gray-600 Last Used: 3 days ago
+        %h1.text-3xl
+          = @recipe.name
+          %hr
+        .absolute.right-0.bottom-0
+          %i.fa.fa-heart.text-red-200
+          %i.fa.fa-list.text-blue-200
+        %h2.text-xl.mt-2 Details
+        %p
+          %ul
+            %li Meal: #{ @recipe.meal.name.capitalize }
+            %li Base: #{ @recipe.base }
+            %li Servings: #{ @recipe.servings}
+            %li Cook Time: #{ @recipe.cooking_length.capitalize}
+            %li #{ @recipe.baby_friendly? ? "Baby Friendly" : "Not Baby Friendly" }
+    .bg-white.p-4.w-full.m-1
+      .flex
+        .p-4{ class: 'w-1/3' }
+          %h3.text-xl Ingredients
+          %p
+            %ul
+              - @recipe.ingredients.each do |ingredient| 
+                %li #{ ingredient.name.capitalize + ": " + ingredient.amount.to_s + " " + ingredient.measure}
+        .p-4{ class: 'w-2/3' }
+          %h3.text-xl Instructions
+          - @recipe.instructions.each do |instruction| 
+            .bg-white.my-4.shadow.p-4
+              %h4 #{ "Step " + instruction.step.to_s }
+              %p.p-2 #{ instruction.detail}

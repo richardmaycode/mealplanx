@@ -4,12 +4,12 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
       #fields
       t.string :name
       t.string :base
-      t.integer :meal
       t.integer :cooking_length
       t.integer :servings
       t.boolean :baby_friendly
       
       #relationships
+      t.belongs_to :meal
       t.belongs_to :cuisine
       #tracking
       t.timestamps

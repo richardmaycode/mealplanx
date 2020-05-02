@@ -9,9 +9,20 @@ class RecipesController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @recipe = Recipe.new
+  end
 
-  def create; end
+  def create
+    @recipe = Recipe.create(recipe_params)
+    if @recipe.save
+      RecipeFinalizer.new(User.first, @recipe, params[:is_fav]).execute
+      redirect_to [@recipe]
+    else
+      render :new
+    end
+
+  end
 
   def edit; end
 
@@ -25,7 +36,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit
+    params.require(:recipe).permit(:name, :base, :meal_id, :cooking_length, :cuisine_id, :servings, :baby_friendly, :is_fav)
   end
 
   def set_recipe

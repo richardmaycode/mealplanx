@@ -1,8 +1,8 @@
 class Recipe < ApplicationRecord
-  enum meal: [:any, :breakfast, :lunch, :dinner, :snack, :dessert]
   enum cooking_length: [:short, :medium, :long]
 
   belongs_to :cuisine
+  belongs_to :meal
   has_and_belongs_to_many :users
   has_many :ingredients
   has_many :instructions

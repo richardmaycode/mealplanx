@@ -1,0 +1,47 @@
+.w-full.max-w-lg.mx-auto
+  = form_with model: @recipe, class: 'bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4'do |f|
+    .mb-4
+      = f.label :name, class: 'label'
+      = f.text_field :name, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', placeholder: 'Name your recipe'
+    .mb-4
+      = f.label :cuisine_id, "Cuisine", class: 'label'
+      .relative
+        = f.select(:cuisine_id, Cuisine.all.map { |c| [c.name, c.id] }, { } ,{class: 'shadow-md block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' })
+        %div{ class: 'pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'}
+          .fal.fa-angle-down.fill-current.h-4.w-4
+    .mb-4
+      = f.label :meal_id, "Meal", class: 'label'
+      .relative
+        = f.select(:meal_id, Meal.all.map { |m| [m.name.capitalize, m.id] }, { }, { class: 'shadow-md block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' })
+        %div{ class: 'pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'}
+          .fal.fa-angle-down.fill-current.h-4.w-4
+    .mb-4
+      = f.label :base, class: 'label'
+      .relative
+        = f.select :base, options_for_select(  [["Beef", "beef"], ["Chicken", "chicken"], ["Pork", "pork"], ["Cheese", "cheese"], ["Veggie", "veggie"], ["Bread", "Bread"]], @recipe.base ), { }, { class: 'shadow-md block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' }
+        %div{ class: 'pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'}
+          .fal.fa-angle-down.fill-current.h-4.w-4
+    .mb-4
+      = f.label :cooking_length, class: 'label'
+      .relative
+        = f.select :cooking_length, Recipe.cooking_lengths.keys.map { |cl| [cl.humanize, cl] }, { }, { class: 'shadow-md block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' }
+        %div{ class: 'pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'}
+          .fal.fa-angle-down.fill-current.h-4.w-4
+    .mb-4
+      = f.label :servings, class: 'label'
+      .relative
+        = f.select :servings, options_for_select( (1..8).map { |n| [n, n] } ),  { }, { class: 'shadow-md block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' }
+        %div{ class: 'pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'}
+          .fal.fa-angle-down.fill-current.h-4.w-4
+    .flex.items-center.space-x-8
+      .mb-4
+        = f.label :baby_friendly, class: 'label' do
+          = f.check_box :baby_friendly
+          .ml-2.w-full.inline Baby Friendly
+      .mb-4
+        = label_tag :is_fav, class: 'label' do
+          = check_box_tag :is_fav
+          .ml-2.w-full.inline Favorite
+    .flex.items-center.space-x-8
+      = f.submit(@recipe.new_record? ? "Create Recipe" : "Update Recipe", class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline')
+      = link_to 'Cancel', recipes_path, class: 'inline-block align-baseline font-bold text-sm text-red-500 hover:text-red-800'

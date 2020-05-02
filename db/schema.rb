@@ -83,15 +83,15 @@ ActiveRecord::Schema.define(version: 2020_04_25_025007) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "base"
-    t.integer "meal"
     t.integer "cooking_length"
     t.integer "servings"
     t.boolean "baby_friendly"
-    t.date "last_used"
+    t.bigint "meal_id"
     t.bigint "cuisine_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cuisine_id"], name: "index_recipes_on_cuisine_id"
+    t.index ["meal_id"], name: "index_recipes_on_meal_id"
   end
 
   create_table "recipes_users", id: false, force: :cascade do |t|
