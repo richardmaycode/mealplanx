@@ -5,20 +5,22 @@
       = @week_block.day_blocks.first.day
     %p.text-md.text-gray-500
       = @week_block.day_blocks.first.scheduled
-  - @week_block.day_blocks.first.plans.each do |plan|
-    .bg-gray-200.p-4.m-2.rounded-lg{class:"lg:w-1/3"}
-      .flex.space-x-2
-        .p-4.bg-white.rounded-lg
-          - if plan.meal.name == "breakfast"
-            %i.fal.fa-egg-fried.fa-2x
-          - elsif plan.meal.name == "lunch"
-            %i.fal.fa-sandwich.fa-2x
-          - else
-            %i.fal.fa-turkey.fa-2x
-        .p-2.mx-4
-          %h2.text-size-xl.font-bold
-            = plan.meal.name.capitalize
-          %p.mt-1
-            = plan.recipe.name
-        .self-center
-          .i.fal.fa-chevron-right	
+  - @week_block.day_blocks.each do |wb|
+    %h2 #{ wb.day }
+    - wb.plans.each do |plan|
+      .bg-gray-200.p-4.m-2.rounded-lg{class:"lg:w-1/3"}
+        .flex.space-x-2
+          .p-4.bg-white.rounded-lg
+            - if plan.meal.name == "breakfast"
+              %i.fal.fa-egg-fried.fa-2x
+            - elsif plan.meal.name == "lunch"
+              %i.fal.fa-sandwich.fa-2x
+            - else
+              %i.fal.fa-turkey.fa-2x
+          .p-2.mx-4
+            %h2.text-size-xl.font-bold
+              = plan.meal.name.capitalize
+            %p.mt-1
+              = plan.recipe.name
+          .self-center
+            .i.fal.fa-chevron-right	

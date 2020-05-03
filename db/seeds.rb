@@ -1,7 +1,7 @@
-Meal.create(name: "breakfast")
-Meal.create(name: "lunch")
-Meal.create(name: "dinner")
-Meal.create(name: "dessert")
+Meal.create(name: "Breakfast")
+Meal.create(name: "Lunch")
+Meal.create(name: "Dinner")
+Meal.create(name: "Other")
 
 Cuisine.create(name:"American")
 Cuisine.create(name:"Mexican")
@@ -67,11 +67,26 @@ Recipe.all.each do |r|
   all_recipes << r.id
 end
 
-User.first.update(recipe_ids: all_recipes)
-UsedRecipe.create(date_used: Time.now - 2.days, recipe: Recipe.find(6), user: User.first)
+user = User.first
+
+user.update(recipe_ids: all_recipes)
+UsedRecipe.create(date_used: Time.now - 2.days, recipe: Recipe.find(6), user: user)
 
 favs = [2, 6, 7, 11, 17, 18, 21, 24, 32, 33]
 
 favs.each do |f|
-  FavoriteRecipe.create(user_id: 1, recipe_id: f)
+  FavoriteRecipe.create(user: user, recipe_id: f)
+end
+
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+days.each do |d|
+  dbp = DayBlockPref.create( meals_to_plan: 0, day: d, user: user)
+  Meal.all.each_with_index do |m, i|
+    if i != 2 
+      dbp.plan_prefs.create(meal: m, day_block_pref: dbp, is_active: false, cooking_length: nil)
+    else
+      dbp.plan_prefs.create(meal: m, day_block_pref: dbp, is_active: true, cooking_length: 1)
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_25_025007) do
+ActiveRecord::Schema.define(version: 2020_05_03_004233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_04_25_025007) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "day_block_prefs", force: :cascade do |t|
+    t.string "day"
+    t.integer "meals_to_plan"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_day_block_prefs_on_user_id"
   end
 
   create_table "day_blocks", force: :cascade do |t|
@@ -67,6 +76,17 @@ ActiveRecord::Schema.define(version: 2020_04_25_025007) do
 
   create_table "meals", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "plan_prefs", force: :cascade do |t|
+    t.boolean "is_active"
+    t.integer "cooking_length"
+    t.bigint "meal_id", null: false
+    t.bigint "day_block_pref_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_block_pref_id"], name: "index_plan_prefs_on_day_block_pref_id"
+    t.index ["meal_id"], name: "index_plan_prefs_on_meal_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -128,10 +148,13 @@ ActiveRecord::Schema.define(version: 2020_04_25_025007) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "day_block_prefs", "users"
   add_foreign_key "day_blocks", "week_blocks"
   add_foreign_key "favorite_recipes", "recipes"
   add_foreign_key "favorite_recipes", "users"
   add_foreign_key "ingredients", "recipes"
+  add_foreign_key "plan_prefs", "day_block_prefs"
+  add_foreign_key "plan_prefs", "meals"
   add_foreign_key "plans", "day_blocks"
   add_foreign_key "plans", "recipes"
   add_foreign_key "recipes_users", "recipes"

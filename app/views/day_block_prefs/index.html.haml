@@ -1,0 +1,21 @@
+.container.mx-auto
+  .flex
+    %h1.text-4xl Planning Prefences
+  %hr
+  .flex.w-full.p-4
+    %table.table-auto.w-full
+      %thead
+        %tr
+          %th.px-4.py-2 Day
+          %th.px-4.py-2 Meals to Plan
+          %th.px-4.py-2 Details
+      %tbody
+        - @day_prefs.each do |dp|
+          %tr
+            %td.border.px-4.py-2 #{ dp.day }
+            %td.border.px-4.py-2 #{ dp.meals_to_plan }
+            %td.border.px-4.py-2
+              - dp.active_plan_prefs.each do |ap|
+                %ul
+                  %li #{ ap.meal.name } - #{ ap.cooking_length }
+

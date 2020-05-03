@@ -16,6 +16,6 @@
           %p.text-gray-700.text-base
             = r.base
         .float-right.inline-block
-          = r.is_favorite ? "<i class='fas fa-heart fa-lg text-red-600'></i>".html_safe : "<i class='fal fa-heart fa-lg text-gray-500'></i>".html_safe
-          = r.is_selected ? "<i class='fas fa-check-circle fa-lg text-teal-600'></i>".html_safe : "<i class='fal fa-times-circle fa-lg text-gray-500'></i>".html_safe
+          = r.is_favorite(@user) ? "<i class='fas fa-heart fa-lg text-red-600'></i>".html_safe : "<i class='fal fa-heart fa-lg text-gray-500'></i>".html_safe
+          = r.is_selected(@user) ? "<i class='fas fa-check-circle fa-lg text-teal-600'></i>".html_safe : "<i class='fal fa-times-circle fa-lg text-gray-500'></i>".html_safe
 

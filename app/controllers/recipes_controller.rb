@@ -2,6 +2,7 @@
 
 # provides controller actions fro recipes
 class RecipesController < ApplicationController
+  before_action :set_user
   before_action :set_recipe, only: %i[show edit update delete]
   def index
     @recipes = Recipe.all
@@ -41,5 +42,9 @@ class RecipesController < ApplicationController
 
   def set_recipe
     @recipe = Recipe.find(params[:id])
+  end
+
+  def set_user
+    @user = User.first
   end
 end
