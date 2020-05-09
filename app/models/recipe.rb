@@ -12,12 +12,21 @@ class Recipe < ApplicationRecord
   has_many :favorite_recipes
   has_many :favorited_users, through: :favorite_recipes, source: :user
 
+  #validations
+  validates :name, :base, :cooking_length, :servings, presence: true
+
+  # methods
   def sort_score(previous_meal, user)
     base = 100
-    score = base + time_bonus + fav_bonus(user) + leftover_mod(previous_meal.leftovers(user), user) + cuisine_bonus(previous_meal.cuisine_id) + base_bonus(previous_meal.base)
+    score = base + time_bonus + fav_bonus(user) + leftover_mod(previous_meal.leftovers(user), user) + cuisine_bonus(previous_meal.cuisine_id) + base_bonus(previous_meal.base) + baby_bonus
     score
   end
 
+  def baby_bonus
+    bonus = baby_friendly ? 50 : 0
+    bonus
+  end
+  
   def time_bonus
     days_since_last_used = (Time.now.to_date - last_used_by_user).to_i
     if days_since_last_used.between?(-100, 5)
